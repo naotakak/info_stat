@@ -1,4 +1,4 @@
 all:
 	gcc info_stat.c
-run:
+run: all
 	./a.out
