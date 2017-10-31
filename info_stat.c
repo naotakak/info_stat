@@ -2,30 +2,32 @@
 #include <unistd.h>
 #include <time.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 char * get_binary(int n) {
   int ret = 0;
   int i = 8;
-  char s[9];
+  char * s;
+  s = malloc(sizeof(char) * 9);
   while (n) {
     //printf("while\n");
     if (n & 1) {
       if ((i % 3) == 0) {
-	s[i] = 'r';
+	* (s + i) = 'r';
 	//printf("%c\n", s[i]);
       }
       if ((i % 3) == 1) {
-	s[i] = 'w';
+	* (s + i) = 'w';
 	//printf("w: %c\n", s[i]);
       }
       if ((i % 3) == 2) {
-	s[i] = 'x';
+	* (s + i) = 'x';
 	//printf("xx");
       }
     }
     else {
       //printf("else\n");
-      s[i] = '-';
+      * (s + i) = '-';
       //printf("%c\n", s[i]);
     }
     i -= 1;
@@ -55,12 +57,12 @@ int main() {
   printf("Mode: %o\n", stats.st_mode);
   int a = 0;
   a = stats.st_mode % 512;
-  printf("a: %o\n", 4);
+  //printf("a: %o\n", 4);
   char * perm;
   //print_b(4);
   perm = get_binary(a);
   printf("%s\n", perm);
-  printf("Access time: %s\n", ctime(&stats.st_atime));
+  printf("Access time: %s", ctime(&stats.st_atime));
  
   return 0;
 }
